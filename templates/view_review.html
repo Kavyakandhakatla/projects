@@ -1,0 +1,23 @@
+{% if session['role'] == 'service_provider' %}
+    {% include "service_provider_head.html" %}
+{% endif %}
+
+{% if session['role'] == 'customer' %}
+    {% include 'customer_head.html'%}
+{% endif %}
+
+<div class="row mt-80">
+<div class="w-30"></div>
+<div class="w-40">
+    <div class="card mt-100  bg-secondary">
+        <div class="h4 text-center">View Review </div><hr>
+        <div class="h6 text-center">Review</div>
+        <div class="text-center mt-5">{{review['review']}}</div><hr>
+        <div class="h6 text-center">Rating</div>
+        <div class="text-center mt-5">{{review['rating']}}</div>
+    </div>
+</div>
+</div>
+
+
+

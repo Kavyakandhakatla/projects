@@ -1,0 +1,293 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20220318/pngtree-winter-snow-road-photography-image_1037287.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  padding-top: 80px;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 5%;
+  left: 0;
+  right: 0;
+  height: auto;
+  min-height: 60px;
+  transition: opacity 0.5s ease;
+  z-index: 1000;
+}
+
+.nav-links {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: -5px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-between;
+  left: -2%;
+}
+
+.nav-links-left,
+.nav-links-right {
+  display: flex;
+  width: 40%;
+}
+
+.nav-links-left {
+  justify-content: flex-end;
+}
+
+.nav-links-right {
+  justify-content: flex-start;
+}
+
+.nav-links li {
+  margin: 0 1rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #0D92F4;
+}
+
+.logo {
+  position: absolute;
+  top: 70%;
+  left: 49%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  width: 140px;
+}
+
+.logo img {
+  height: auto;
+  width: 100%;
+  border-radius: 50%;
+
+}
+
+.nav-links a::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #a5d8ff;
+  transition: width 0.3s;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+section h1,
+section h2 {
+  font-size: 2.5em;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  background-color:white;
+  padding:15px;
+  border-radius: 50px;
+}
+
+section p {
+  font-size: 1.2em;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1200px) {
+  .nav-links-left,
+  .nav-links-right {
+    width: 45%;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-links-left,
+  .nav-links-right {
+    width: 48%;
+  }
+
+  section h1,
+  section h2 {
+    font-size: 2.2em;
+  }
+
+  section p {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 0.5rem;
+    height: auto;
+  }
+  .nav-links {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    position: static;
+    transform: none;
+    left: auto;
+  }
+  .nav-links-left,
+  .nav-links-right {
+    width: auto;
+    justify-content: center;
+  }
+  .nav-links li {
+    margin: 0.25rem 0.5rem;
+  }
+  .logo {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    left: auto;
+    transform: none;
+    width: 60px;
+  }
+  .logo img {
+    width: 100%;
+  }
+  section {
+    padding-top: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.25rem;
+  }
+  .nav-links {
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+  .logo {
+    width: 50px;
+  }
+  section h1,a
+  section h2 {
+    font-size: 1.8em;
+  }
+  section p {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 360px) {
+  .nav-links li {
+    margin: 0.15rem 0.25rem;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+  }
+  section h1,
+  section h2 {
+    font-size: 1.6em;
+  }
+  section p {
+    font-size: 0.8em;
+  }
+}
+
+.card1{
+    position: absolute;
+    top: 90px;
+    border-radius: 15px;
+    background-color: rgb(71, 71, 107, 0.8)
+    }
+
+    .table{
+    border:1px solid black;
+    }
+
+    .th{
+    border:1px solid black;
+    }
+
+    .td{
+    border:1px solid black;
+    }
+
+    .button{
+    padding: 6px 20px;
+    border-radius: 10px;
+    margin-top: 13px;
+    margin-left:7px;
+    margin-right:7px;
+    }
+       .fill {
+  background: rgb(57, 172, 57);
+  color: black;
+  filter: drop-shadow(0);
+  font-weight: bold;
+  transition: all .3s ease;
+}
+
+.fill:hover{
+  transform: scale(1.125);
+  border-color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 10px 5px rgba(0,0,0,0.125));
+  transition: all .3s ease;
+}
+
+    .fill1{
+    background: rgb(255, 71, 26);
+  color: black;
+  filter: drop-shadow(0);
+  font-weight: bold;
+  transition: all .3s ease;
+    }
+    .fill1:hover{
+  transform: scale(1.125);
+  border-color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 10px 5px rgba(0,0,0,0.125));
+  transition: all .3s ease;
+}

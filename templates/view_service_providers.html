@@ -1,0 +1,61 @@
+{% include 'admin_head.html'%}
+
+
+<div class="row mt-100">
+    <div class="w-10"></div>
+    <div class="w-90">
+        <table class="table">
+        <tr>
+            <th class="th">First Name</th>
+            <th class="th">Last Name</th>
+            <th class="th">Email</th>
+             <th class="th">Phone</th>
+            <th class="th">Company Name</th>
+            <th class="th">Location</th>
+            <th class="th">City</th>
+            <th class="th">Zipcode</th>
+            <th class="th">Status</th>
+            <th class="th">Action</th>
+        </tr>
+        {% for service_provider in service_providers: %}
+        {% set location = get_location_by_location_id(service_provider['location_id']) %}
+        <tr>
+            <td class="td">{{service_provider['first_name']}}</td>
+            <td class="td">{{service_provider['last_name']}}</td>
+            <td class="td">{{service_provider['email']}}</td>
+            <td class="td">{{service_provider['phone']}}</td>
+            <td class="td">{{service_provider['company_name']}}</td>
+            <td class="td">{{location['location_name']}}</td>
+            <td class="td">{{service_provider['city']}}</td>
+            <td class="td">{{service_provider['zipcode']}}</td>
+            <td class="td">{{service_provider['status']}}</td>
+            {% if service_provider['status'] == 'Authorised' %}
+                <td class="td">
+                    <form action="update_status">
+                        <input type="hidden" name="service_provider_id" value="{{service_provider['_id']}}">
+                        <input type="hidden" name="status" value="Unauthorized">
+                        <input type="submit" class="button" value="Deactivate">
+                    </form>
+                </td>
+            {% endif %}
+            {% if service_provider['status'] == 'Unauthorized' %}
+                <td class="td">
+                    <form action="update_status">
+                        <input type="hidden" name="service_provider_id" value="{{service_provider['_id']}}">
+                        <input type="hidden" name="status" value="Authorised">
+                        <input type="submit"  class="button" value="Authorize">
+                    </form>
+                </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    </div>
+</div>
+<div class="">
+
+</div>
+
+
+

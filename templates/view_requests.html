@@ -1,0 +1,168 @@
+{% if session['role'] == 'service_provider' %}
+    {% include "service_provider_head.html" %}
+{% endif %}
+{% if session['role'] == 'admin' %}
+    {% include "admin_head.html" %}
+{% endif %}
+
+{% if session['role'] == 'customer' %}
+    {% include 'customer_head.html'%}
+{% endif %}
+
+{% for request in requests: %}
+{% set service = get_service_by_service_id(request['service_id']) %}
+{% set location = get_location_by_location_id(service['location_id'])%}
+{% set service_provider = get_service_provider_by_service_provider_id(request['service_provider_id']) %}
+{% set service_provider_location = get_location_by_location_id(service_provider['location_id'])%}
+{% set customer = get_customer_by_customer_id(request['customer_id']) %}
+{% set customer_location = get_location_by_location_id(service_provider['location_id'])%}
+<div class="row mt-100">
+    <div class="w-25"></div>
+    <div class="w-50">
+        <div class="card p-20 bg-secondary">
+            <div class="row">
+                <div class="w-40">
+                    <div class="text-center h5">{{service['service_title']}}</div>
+                    <img src="../static/Pictures/{{service['picture']}}" style="max-width:100%; max-height: 100%;height: 90%; border-radius:26px;">
+                </div>
+                <div class="w-50 text-center p-20">
+                    <div>
+                        <div>From Date : <b>{{request['from_date_time'].strftime("%d-%m-%Y %H:%M %p" )}}</b></div>
+                        <div class="mt-5">To Date : <b>{{request['to_date_time'].strftime("%d-%m-%Y %H:%M %p" )}}</b></div>
+                        <div class="mt-5">Location : <b>{{location['location_name']}}</b></div>
+                        <div class="mt-5">Status : <b>{{request['status']}}</b></div>
+                        <hr>
+                        <div class="mt-5 h5">Requested By</div><hr>
+                        <div class="mt-5">{{customer['first_name']}} {{customer['last_name']}}</div>
+                        <div class="mt-5">{{customer['phone']}}</div>
+                        <div class="mt-5">{{customer['email']}}</div><hr>
+                        <div class="mt-5 h5">Requested To</div><hr>
+                        <div class="mt-5">{{customer['first_name']}} {{customer['last_name']}}</div>
+                        <div class="mt-5">{{customer['phone']}}</div>
+                        <div class="mt-5">{{customer['email']}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="w-50">
+                    {% if session['role'] == 'service_provider' %}
+                    {% if request['status'] == 'Requested' %}
+                    <form action="update_request_status" class="button1">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="hidden" name="status" value="Accepted">
+                        <input type="submit" value="Accept" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% if request['status'] == 'Service Started' %}
+                    <form action="view_requests">
+                        <div><b>Worked Square Feets</b></div>
+                        <input type="number" value="{{no_of_square_feets}}" name="no_of_square_feets" id="no_of_square_feets" placeholder="No.of Square Feets" onchange="this.form.submit()">
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                    {% if session['role'] == 'customer' %}
+                    {% if request['status'] == 'Service Completed' %}
+                        <div>
+                            <div style="font-weight:bold;">No.of Square Feets Worked</div>
+                            <div>{{request['square_feets_worked']}}</div>
+                        </div>
+                    {% endif %}
+                    {% endif %}
+                    {% if request['status'] == 'Paid' or request['status'] == 'Review Given' %}
+                        <div>
+                            <div style="font-weight:bold;">Service Start Time</div>
+                            <div>{{request['service_start_time'].strftime("%d-%m-%Y %H:%M")}}</div>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="w-50">
+                    {% if session['role'] == 'customer' %}
+                        {% if request['status'] == 'Requested' %}
+                        <form action="update_request_status" class="">
+                            <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                            <input type="hidden" name="status" value="Cancelled">
+                            <input type="submit" value="Cancel"  class="btn bg-danger fill p-5">
+                        </form>
+                        {% endif %}
+                        {% if request['status'] == 'Requested' %}
+                         <form action="reschedule" class="button7">
+                            <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                            <input type="submit" value="Reschedule" class="btn fill p-5">
+                        </form>
+
+                        {% endif %}
+                    {% endif %}
+                    {% if session['role'] == 'service_provider' %}
+                    {% if request['status'] == 'Requested' %}
+                    <form action="update_request_status" class="">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="hidden" name="status" value="Rejected">
+                        <input type="submit" value="Reject"  class="btn bg-danger fill p-5">
+                    </form>
+                    {% endif %}
+                    {% if request['status'] == 'Accepted' %}
+                    <form action="service_request_status" class="button1">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="hidden" name="status" value="Service Started">
+                        <input type="submit" value="Star Service" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% if request['status'] == 'Service Started' %}
+                    <form action="update_work" class="button1">
+                        <input type="hidden" name="square_feets_worked" value="{{no_of_square_feets}}">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="hidden" name="status" value="Service Completed">
+                        <input type="submit" value="End Service" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% if request['status'] == 'Review Given' %}
+                    <form action="view_review" class="button7">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="View Review" class="btn fill p-5">
+                    </form>
+                    <form action="view_payment" class="button6" style="margin: 7px 0px;">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="View Payment" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% if request['status'] == 'Payment Done'  %}
+                    <form action="view_payment" class="button6" style="margin: 7px 0px;">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="View Payment" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                    {% if session['role'] == 'customer' %}
+                    {% if request['status'] == 'Service Completed' %}
+                        <div class="h5 text-center">Total Amount : {{int(request['square_feets_worked'])*int(service['charge_for_square_feet'])}}</div>
+                       <a href="pay_amount?service_request_id={{request['_id']}}&amount={{int(request['square_feets_worked'])*int(service['charge_for_square_feet'])}}" class="btn fill p-5">Pay Amount</a>
+                    {% endif %}
+                    {% if request['status'] == 'Payment Done' %}
+                    <form action="review_rating" class="button6" style="margin: 7px 0px;">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="Review & Rating" class="btn fill p-5">
+                    </form>
+                    <form action="view_payment" class="button6" style="margin: 7px 0px;">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="View Payment" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% if request['status'] == 'Review Given' %}
+                    <form action="view_review" class="button7" style="margin: 7px 0px;">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="View Review" class="btn fill p-5">
+                    </form>
+                    <form action="view_payment" class="button6" style="margin: 7px 0px;">
+                        <input type="hidden" name="service_request_id" value="{{request['_id']}}">
+                        <input type="submit" value="View Payment" class="btn fill p-5">
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-10"></div>
+</div>
+
+{% endfor %}

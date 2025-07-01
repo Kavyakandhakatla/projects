@@ -1,0 +1,88 @@
+.text-center {
+    text-align: center;
+}
+.text-start {
+    text-align: left;
+}
+.text-end {
+    text-align: right;
+}
+
+.h1 {
+    font-size: 200%;
+    font-weight: bolder;
+}
+.h2 {
+    font-size: 180%;
+    font-weight: bolder;
+}
+.h3 {
+    font-size: 160%;
+    font-weight: bolder;
+}
+.h4 {
+    font-size: 140%;
+    font-weight: bolder;
+}
+.h5 {
+    font-size: 120%;
+    font-weight: bolder;
+}
+.h6 {
+    font-size: 100%;
+    font-weight: bolder;
+}
+
+.text-primary {
+    color: #024CAA;
+}
+.text-secondary{
+    color: #024CAA;
+}
+.text-success{
+    color: rgb(9, 150, 103);
+}
+.text-danger {
+    color: red;
+}
+.text-info {
+    color: #afe3d3;
+}
+.text-muted {
+    color: gray;
+}
+.text-white {
+    color: white;
+}
+.text-black {
+    color: black;
+}
+
+.bg-primary {
+    background-color: #024CAA;
+}
+.bg-secondary{
+    background-color: rgba(255, 255, 255, 0.7);
+}
+.bg-success{
+    background-color: rgb(10, 180, 124);
+}
+.bg-danger {
+    background-color: red;
+}
+.bg-info {
+    background-color: #afe3d3;
+}
+.bg-muted {
+    background-color: gray;
+}
+.bg-white {
+    background-color: white;
+}
+.bg-black {
+    background-color: black;
+}
+.msg{
+    color: #20b27f;
+}
+

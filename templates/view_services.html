@@ -1,0 +1,248 @@
+
+{% if session['role'] == 'admin' %}
+    {% include "admin_head.html" %}
+{% endif %}
+
+{% if session['role'] == 'customer' %}
+    {% include 'customer_head.html'%}
+{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<div>
+    <form action="/view_services" style="margin-left:600px; margin-top:100px">
+        <div class="w-40 mt-10">
+            <div class="text-center h5" style="color:white">Search by  Location</div>
+            <select name="location_id" id="location_id" required onchange="this.form.submit()" class="p-10 w-100">
+                <option value="">Select Location</option>
+                {% for location in locations: %}
+                <option value ="{{location['_id']}}"{% if str(location['_id']) == str(location_id)%} selected {% endif %}>{{location['location_name']}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+</div>
+
+<div class="card-container">
+    {% for service in services: %}
+    {% set location = get_location_by_location_id(service['location_id'])%}
+    <div class="card card-1">
+        <div class="card-img" style="background-image: var(--card-img-hovered-overlay), url(static/Pictures/{{service['picture']}});"></div>
+        <a href="" class="card-link">
+            <div class="card-img-hovered" style="background-image: var(--card-img-hovered-overlay), url(../static/Pictures/{{service['picture']}});"></div>
+        </a>
+        <div class="card-info">
+            <div class="card-about">
+                <div class="h4">{{location['location_name']}}</div>
+
+                <div class="card-time">${{service['charge_for_square_feet']}} per square feet</div>
+
+            </div>
+            {% if session['role'] == 'admin'%}
+            <form action="view_requests" class="card-title" style="margin-left:155px;">
+                <input type="hidden" name="service_id" value="{{service['_id']}}">
+                <input type="submit" value="View Requests" style="text-decoration: none; background-color:white; border-radius:15px; font-size:18px; width:140px; text-align:center;padding:5px 10px;">
+            </form>
+            {% endif%}
+            {% if session['role'] == 'customer'%}
+            <form action="send_request" class="card-title" style="display: flex;">
+                <input type="hidden" name="service_id" value="{{service['_id']}}">
+                <input type="hidden" name="charge_for_square_feet" value="{{service['charge_for_square_feet']}}">
+                <input type="submit" value="Send Request" style="text-decoration: none; background-color:white; border-radius:15px; font-size:18px; width:130px; text-align:center;padding:5px 10px; margin-left:150px;">
+            </form>
+            {% endif%}
+            <h1 class="h5">{{service['service_title']}}</h1>
+            <div class="card-about">
+                {{service['description']}}
+            </div>
+            <div class="card-creator"></div>
+
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if session['role'] == 'admin'%}
+<div style="position: absolute; top: 150px; left:40px;" class="h6">
+    <a style="text-decoration: None; background-color:white; padding:14px; border-radius:15px;" href="/add_service">Add Service</a>
+</div>
+{% endif%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    /* RESET */
+ * {
+	 margin: 0;
+	 padding: 0;
+	 box-sizing: border-box;
+}
+ body {
+	 font-family: "Open Sans", sans-serif;
+	 min-height: 100vh;
+}
+ body a {
+	 text-decoration: none;
+	 color: #172b4d;
+}
+ body h1 {
+	 font-family: "Song Myung", serif;
+}
+/* DEFAULT STYLE */
+ :root {
+	 font-size: 16px;
+	 --card-img-height: 200px;
+}
+ .card-container {
+        margin-top:30px;
+	 width: 100%;
+	 height: 100vh;
+	 display: flex;
+	 flex-flow: row wrap;
+	 justify-content: center;
+	 align-items: center;
+	 transition: all 200ms ease-in-out;
+}
+ .card {
+	 align-self: flex-start;
+	 position: relative;
+	 width: 325px;
+	 min-width: 275px;
+	 margin: 1.25rem 0.75rem;
+	 background: white;
+	 transition: all 300ms ease-in-out;
+}
+ .card .card-img {
+	 visibility: hidden;
+	 width: 100%;
+	 height: var(--card-img-height);
+	 background-repeat: no-repeat;
+	 background-position: center center;
+	 background-size: cover;
+}
+ .card .card-img-hovered {
+	 --card-img-hovered-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+	 transition: all 350ms ease-in-out;
+	 background-repeat: no-repeat;
+	 background-position: center center;
+	 background-size: cover;
+	 width: 100%;
+	 position: absolute;
+	 height: var(--card-img-height);
+	 top: 0;
+}
+ .card .card-info {
+	 position: relative;
+	 padding: 0.75rem 1.25rem;
+	 transition: all 200ms ease-in-out;
+}
+ .card .card-info .card-about {
+	 display: flex;
+	 justify-content: space-between;
+	 align-items: center;
+	 padding: 0.75rem 0;
+	 transition: all 200ms ease-in-out;
+}
+ .card .card-info .card-about .card-tag {
+	 width: 60px;
+	 max-width: 100px;
+	 padding: 0.2rem 0.5rem;
+	 font-size: 12px;
+	 text-align: center;
+	 text-transform: uppercase;
+	 letter-spacing: 1px;
+	 background: #505f79;
+	 color: #fff;
+}
+ .card .card-info .card-about .card-tag.tag-news {
+	 background: #36b37e;
+}
+ .card .card-info .card-about .card-tag.tag-deals {
+	 background: #ffab00;
+}
+ .card .card-info .card-about .card-tag.tag-politics {
+	 width: 71px;
+	 background: #ff5630;
+}
+ .card .card-info .card-title {
+	 z-index: 10;
+	 font-size: 1.5rem;
+	 padding-bottom: 0.75rem;
+	 transition: all 350ms ease-in-out;
+}
+ .card .card-info .card-creator {
+	 padding-bottom: 0.75rem;
+	 transition: all 250ms ease-in-out;
+}
+ .card:hover {
+	 cursor: pointer;
+	 box-shadow: 0px 15px 35px rgba(227, 252, 239, 0.1), 0px 5px 15px rgba(0, 0, 0, 0.07);
+	 transform: scale(1.025);
+}
+ .card:hover .card-img-hovered {
+	 --card-img-hovered-overlay: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.65));
+	 height: 100%;
+}
+ .card:hover .card-about, .card:hover .card-creator {
+	 opacity: 0;
+}
+ .card:hover .card-info {
+	 background-color: transparent;
+}
+ .card:hover .card-title {
+	 color: #ebecf0;
+	 transform: translate(0, 40px);
+}
+
+
+
+
+#no_of_sq_feet{
+width: 110px;
+padding-top: 10px;
+padding-bottom: 10px;
+border-radius: 18px;
+}
+
+#addservice1{
+text-decoration: none;
+}
+
+#send_request{
+text-decoration: none;
+}
+
+
+.fill {
+  background: rgba(0, 212, 255, 0.9);
+  color: rgba(255,255,255,0.95);
+  filter: drop-shadow(0);
+  font-weight: bold;
+  transition: all .3s ease;
+}
+
+.fill:hover{
+  transform: scale(1.125);
+  border-color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 10px 5px rgba(0,0,0,0.125));
+  transition: all .3s ease;
+}
+</style>

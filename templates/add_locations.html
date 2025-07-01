@@ -1,0 +1,59 @@
+{% include "admin_head.html" %}
+<div class="row" >
+    <div class="w-10 mt-20"></div>
+    <div class="w-40">
+        <div class="card mt-100  bg-secondary">
+            <div class="row">
+                <div class="w-45">
+                    <img src="https://i.redd.it/fwlrl8arge031.png" alt="" class="img" style="width:450px; height:300px;">
+                </div>
+                <div class="w-50 p-10">
+                    <div class="text-center text-secondary h5">Add Location</div>
+                    <form action="/add_location_action" method="post">
+                        <div class="form-group mt-20">
+                            <input type="text" name="location_name" id="location_name" class="form-control p-10 bg-secondary" placeholder="" required>
+                            <label for="location_name" class="form-label p-5">Location name</label>
+                        </div>
+                        <div class="form-group mt-25">
+                            <input type="number" name="zipcode" id="zipcode" class="form-control p-10 bg-secondary" placeholder="" required>
+                            <label for="zipcode" class="form-label p-5">Zipcode</label>
+                        </div>
+                        <input type="submit" value="Add" class="btn bg-primary text-white p-5 mt-15">
+                    </form>
+                </div>
+            </div>
+            <div >
+
+            </div>
+
+        </div>
+    </div>
+    <div class="w-30  p-20">
+        <div class="card mt-80  bg-secondary">
+            <div class="text-center h4 p-5">View Locations</div><hr>
+            <div class="row">
+                <div class="w-50">
+                    <div class="h5 text-center">Location Name</div>
+                </div>
+                <div class="w-50">
+                    <div class="h5 text-center">Zipcode</div>
+
+                </div>
+            </div>
+            {% for location in locations: %}
+            <div class="row mt-15">
+                <div class="w-50 ">
+                    <div class="text-center">{{location['location_name']}}</div>
+                </div>
+                <div class="w-50">
+                    <div class="text-center">{{location['zipcode']}}</div>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,44 @@
+{% include 'customer_head.html'%}
+
+<div class="row" >
+    <div class="w-20 mt-20"></div>
+    <div class="w-60">
+        <div class="card mt-100  bg-secondary">
+            <div class="row">
+            <div class="w-45">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT64r_-UV90TFx87iuo5f0FwyC9LUh45Er6fw&s" alt="" class="img" style="width:450px; height:300px;">
+            </div>
+            <div class="w-50 p-10">
+                <div class="text-center text-secondary h5">Review & Rating</div>
+                <form action="/review_rating_action" method="post">
+                <input type="hidden" name="service_request_id" value="{{service_request_id}}">
+                    <div class="form-group mt-20">
+                      <textarea  name="review" id="review" class="form-control p-10 bg-secondary" placeholder="" required></textarea>
+                        <label for="review" class="form-label p-5">Review</label>
+                    </div>
+                    <div class="form-group mt-25">
+                       <select name="rating" id="rating" class="form-control p-10 bg-secondary" placeholder="" required>>
+                            <option value="">Choose Rating</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Submit" class="btn bg-primary text-white p-10 mt-15">
+                </form>
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="w-60">
+
+    </div>
+</div>
+
+
+

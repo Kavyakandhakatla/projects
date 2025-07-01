@@ -1,0 +1,37 @@
+{% include "head.html" %}
+
+<div class="row" >
+    <div class="w-20 mt-20"></div>
+    <div class="w-60">
+        <div class="card mt-100  bg-secondary">
+            <div class="row">
+            <div class="w-45">
+                <img src="https://media.istockphoto.com/id/1297462599/photo/communal-services-workers-sweep-snow-from-road-in-winter-cleaning-city-streets-and-roads.jpg?s=612x612&w=0&k=20&c=cK9LKnjxAlIt95Qzr7a4eiGbaSrwlJSR4n-41fJx4Z8=" alt="" class="img" style="width:450px; height:350px;">
+            </div>
+            <div class="w-45 p-20">
+                <div class="text-center text-secondary h5">Service Provider Login Here</div>
+                <form action="/service_provider_login_action" method="post">
+                    <div class="form-group mt-20">
+                        <input type="email" name="email" id="email" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="email" class="form-label p-5">Email</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="password" name="password" id="password" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="password" class="form-label p-5">Password</label>
+                    </div>
+                    <input type="submit" value="Login" class="btn bg-primary text-white p-5 mt-15">
+                  <div class="mt-10 h5 text-center text-danger">If You don't have an account?</div>
+                  <a href="/service_provider_registration" class="btn bg-primary text-white p-5 mt-15">Sign up</a>
+
+                </form>
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="w-60">
+
+    </div>
+</div>
+

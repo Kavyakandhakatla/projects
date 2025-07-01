@@ -1,0 +1,45 @@
+{% if session['role'] == 'service_provider' %}
+    {% include "service_provider_head.html" %}
+{% endif %}
+{% if session['role'] == 'admin' %}
+    {% include "admin_head.html" %}
+{% endif %}
+
+{% if session['role'] == 'customer' %}
+    {% include 'customer_head.html'%}
+{% endif %}
+
+
+<div class="row mt-100" style="left:300px;">
+    <div class="w-20">
+    </div>
+    <div class="w-80 p-20">
+        <table class="table p-10">
+        <tr>
+            <th class="th">Card Type</th>
+            <th class="th">Card Number</th>
+            <th class="th">Card Holder Name</th>
+             <th class="th">CVV</th>
+            <th class="th">Status</th>
+            <th class="th">Data</th>
+            <th class="th">amount</th>
+        </tr>
+        {% for payment in payments: %}
+        <tr>
+            <td class="td">{{payment['card_type']}}</td>
+            <td class="td">{{payment['card_number']}}</td>
+            <td class="td">{{payment['card_holder_name']}}</td>
+            <td class="td">{{payment['cvv']}}</td>
+            <td class="td">{{payment['status']}}</td>
+            <td class="td">{{payment['date']}}</td>
+            <td class="td">{{payment['amount']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    </div>
+</div>
+<div class="">
+
+</div>
+

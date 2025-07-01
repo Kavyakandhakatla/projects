@@ -1,0 +1,35 @@
+{% if session['role'] == 'customer' %}
+    {% include 'customer_head.html'%}
+{% endif %}
+
+
+<div class="row">
+    <div class="w-20 mt-20"></div>
+    <div class="w-60">
+        <div class="card mt-100 bg-secondary">
+            <div class="text-center text-secondary h4">Reschedule Request</div>
+            <div class="row">
+                <form action="reschedule_request" style="display:flex; margin-left:45px;">
+                    <input type="hidden" name="service_request_id" value="{{service_request_id}}">
+                    <div class="row">
+                        <div class="w-50 p-20">
+                            <div class="form-group mt-20">
+                                <input type="datetime-local" name="from_date_time" value="{{from_date_time}}" placeholder="Choose From Date" class="form-control p-20">
+                                <label for="from_date_time" class="form-label p-5">From Date</label>
+                            </div>
+                        </div>
+                        <div class="w-50 p-20">
+                            <div class="form-group mt-20">
+                                <input type="datetime-local" name="to_date_time" value="{{to_date_time}}" placeholder="Choose To Date" class="form-control p-20">
+                                <label for="to_date_time" class="form-label p-5">To Date</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-50 p-20">
+                        <input type="submit" value="Reschedule" class="btn bg-primary text-white p-15 mt-100 w-100">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

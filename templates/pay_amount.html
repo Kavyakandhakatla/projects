@@ -1,0 +1,55 @@
+{% include 'customer_head.html'%}
+
+<div class="row mt-50">
+    <div class="w-20 "></div>
+    <div class="w-60">
+        <div class="card mt-100  bg-secondary">
+            <div class="row">
+            <div class="w-45">
+                <img src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/202407/668508abad0ff-credit-card-payment--bbps-031538548-16x9.png?size=948:533" alt="" class="img" style="width:450px; height:480px;">
+            </div>
+            <div class="w-50 p-10">
+                <div class="text-center text-secondary h5">Total Payment : ${{amount}}</div>
+                <form action="/pay_amount_action">
+                    <input type="hidden" name="status" value="Paid">
+                    <input type="hidden" name="service_request_id" value="{{service_request_id}}">
+                    <div class="form-group mt-20">
+                        <select name="card_type" id="card_type" class="form-control p-5 bg-secondary" placeholder="" required>>
+                            <option value="">Choose card Type</option>
+                            <option value="credit_card">Credit Card</option>
+                            <option value="debit_card">Debit Card</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="number" name="card_number" id="card_number" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="card_number" class="form-label p-5">Card Number</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="text" name="card_holder_name" id="card_holder_name" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="card_holder_name" class="form-label p-5">Card Holder Name</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="number" name="cvv" id="cvv" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="cvv" class="form-label p-5">Cvv</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="text" name="expiry_date" id="expiry_date" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="expiry_date" class="form-label p-5">Expiry Date</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="number" id="amount" name="amount" value="{{amount}}" readonly required style="background-color: white;" class="form-control p-10 bg-secondary">
+                    </div>
+                    <input type="submit" value="Pay" class="btn bg-primary text-white p-10 mt-15">
+                </form>
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="w-60">
+
+    </div>
+</div>
+
+

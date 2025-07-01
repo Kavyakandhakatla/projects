@@ -1,0 +1,51 @@
+{% include "admin_head.html" %}
+
+{% include "head.html" %}
+<div class="row" >
+    <div class="w-20 mt-20"></div>
+    <div class="w-60">
+        <div class="card mt-100  bg-secondary">
+            <div class="row">
+            <div class="w-45">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGT-2f_gfGlgK2kifZTw8Nv5T4VVFGAV24dZhSn-MVeuMHErVG_DZVpAxLXEc4GJVFqkQ&usqp=CAU" alt="" class="img" style="width:450px; height:450px;">
+            </div>
+            <div class="w-50 p-10">
+                <div class="text-center text-secondary h5">Add Service Here</div>
+                <form action="/add_service_action" method="POST" enctype="multipart/form-data">
+                    <div class="form-group  mt-20">
+                        <select name="location_id" id="location_id" class="form-control p-10 bg-secondary" placeholder="" required>
+                            <option value="">Choose Location</option>
+                                {% for location in locations %}
+                                <option value="{{location['_id']}}">{{location['location_name']}}</option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="text" name="service_title" id="service_title" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="service_title" class="form-label p-5">Service Title</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="number" name="charge_for_square_feet" id="charge_for_square_feet" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="charge_for_square_feet" class="form-label p-5">Charge for square Feet</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <input type="file" name="picture" id="picture" class="form-control p-10 bg-secondary" placeholder="" required>
+                        <label for="picture" class="form-label p-5">Choose Picture</label>
+                    </div>
+                    <div class="form-group mt-25">
+                        <textarea name="description" id="description" class="form-control p-10 bg-secondary" placeholder="" required> </textarea>
+                        <label for="description" class="form-label p-5">Description</label>
+                    </div>
+                    <input type="submit" value="Add Service" class="btn bg-primary text-white p-5 mt-15">
+                </form>
+
+            </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="w-60">
+
+    </div>
+</div>
+

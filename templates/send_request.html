@@ -1,0 +1,50 @@
+{% include "customer_head.html" %}
+
+
+<div class="row" >
+    <div class="w-20 mt-20"></div>
+    <div class="w-60">
+        <div class="card mt-100  bg-secondary">
+            <div class="text-center text-secondary h4">Send Request to Service </div>
+            <div class="row">
+                <form action="send_request" style="display:flex; margin-left:45px;">
+                <input type="hidden" name="service_id" value="{{service_id}}">
+                <input type="hidden" name="charge_for_square_feet" value="{{charge_for_square_feet}}">
+                       <div class="w-50 p-20">
+                        <div class="form-group mt-20">
+                            <input type="datetime-local" name="from_date_time" value="{{from_date_time}}" onchange="this.form.submit()" placeholder="Choose To Date" class="form-control p-20">
+                            <label for="from_date_time" class="form-label p-5">From Date</label>
+                        </div>
+                       </div>
+                       <div class="w-50 p-20">
+                            <div class="form-group mt-20">
+                                <input type="datetime-local" name="to_date_time" value="{{to_date_time}}" onchange="this.form.submit()" placeholder="Choose To Date"  class="form-control p-20">
+                                <label for="to_date_time" class="form-label p-5">To Date Time</label>
+                            </div>
+                       </div>
+                </form>
+                <form action="send_request_action">
+                    <input type="hidden" name="service_id" value="{{service_id}}">
+                    <input type="hidden" name="charge_for_square_feet" value="{{charge_for_square_feet}}">
+                    <input type="hidden" name="from_date_time" value="{{from_date_time}}">
+                    <input type="hidden" name="to_date_time" value="{{to_date_time}}">
+                            <div class="w-100 p-20">
+                                <select name="service_provider_id" id="service_provider_id" class="form-control p-20 mt-20">
+                                    <option value="">Choose Service Provider</option>
+                                    {% for service_provider in service_providers %}
+                                        {% set is_not_available = is_service_provider_available(service_id, service_provider['_id'], from_date_time, to_date_time) %}
+                                        {% if not is_not_available: %}
+                                        <option value="{{service_provider['_id']}}">{{service_provider['company_name']}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                           </div>
+                            <input type="submit" value="Send Request " class="btn bg-primary text-white p-10 mt-15">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
